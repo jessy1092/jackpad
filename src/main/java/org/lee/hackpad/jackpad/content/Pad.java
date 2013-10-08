@@ -54,11 +54,11 @@ public class Pad
 		this.site = site;
 		if(site.equals(""))
 		{
-			uri = "https://hackpad.com/api/1.0/pad/create";
+			uri = "https://hackpad.com/api/1.0";
 		}
 		else
 		{
-			uri = String.format("https://%s.hackpad.com/api/1.0/pad/create", site);
+			uri = String.format("https://%s.hackpad.com/api/1.0", site);
 		}
 	}
 	

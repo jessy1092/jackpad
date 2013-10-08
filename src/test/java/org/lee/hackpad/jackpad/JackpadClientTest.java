@@ -62,8 +62,15 @@ public class JackpadClientTest
 	{
 		String padText = jackpadClient.getPadContent("ClziL81VPO9", "latest", "html");
 		System.out.println(padText);
-		assertEquals(false ,padText.isEmpty());
+		assertEquals(false, padText.isEmpty());
 	}
 	
+	@Test
+	public void TestUpdatePadContent()
+	{
+		pad.setPadID("ClziL81VPO9");
+		boolean test = jackpadClient.updatePadContent(pad);
+		assertEquals(true, test);
+	}
 	
 }

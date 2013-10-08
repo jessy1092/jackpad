@@ -70,7 +70,8 @@ public class JackpadClient
 	 * */
 	public String createPad(Pad pad)
 	{
-		WebResource servicePOST = client.resource(UriBuilder.fromUri(pad.getUri()).build());		
+		String uri = pad.getUri() + "/pad/create";
+		WebResource servicePOST = client.resource(UriBuilder.fromUri(uri).build());		
 		String json = servicePOST.accept(MediaType.APPLICATION_JSON).header("Content-Type", pad.getContentType()).post(String.class, pad.getTitle() + '\n' + pad.getContent());
 //		System.out.println(json);
 		Map<String, String> retMap = gson.fromJson(json,  
@@ -93,11 +94,28 @@ public class JackpadClient
 		return serviceGET.accept(MediaType.APPLICATION_JSON).get(String.class);
 	}
 	
+	/**
+	 * Get the pad's content
+	 * @param padID The ID of the pad
+	 * @param revision Revision number or "latest"
+	 * @param format File type requested ("txt", "html", or "md")
+	 * */
 	public String getPadContent(String padID, String revision, String format)
 	{
 		String uri = String.format("https://hackpad.com/api/1.0/pad/%s/content/%s.%s", padID, revision, format);
 		WebResource serviceGET = client.resource(UriBuilder.fromUri(uri).build());
 		return serviceGET.accept(MediaType.APPLICATION_JSON).get(String.class);
+	}
+	
+	public boolean updatePadContent(Pad pad)
+	{
+		String uri = String.format("%s/pad/%s/content", pad.getUri(), pad.getPadID()) ;
+		WebResource servicePOST = client.resource(UriBuilder.fromUri(uri).build());		
+		String json = servicePOST.accept(MediaType.APPLICATION_JSON).header("Content-Type", pad.getContentType()).post(String.class, pad.getTitle() + '\n' + pad.getContent());
+//		System.out.println(json);
+		Map<String, String> retMap = gson.fromJson(json,  
+                new TypeToken<Map<String, String>>() {}.getType());  
+		return Boolean.parseBoolean(retMap.get("success").toString());
 	}
 	
 	/**
