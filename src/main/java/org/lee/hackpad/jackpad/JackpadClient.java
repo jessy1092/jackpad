@@ -1,7 +1,5 @@
 package org.lee.hackpad.jackpad;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
@@ -66,15 +64,40 @@ public class JackpadClient
 		client.addFilter(filter);
 	}
 	
-	public void createPad(Pad pad)
+	/**
+	 * Create a pad
+	 * @param pad The pad of hackpad 
+	 * */
+	public String createPad(Pad pad)
 	{
-		WebResource servicePOST = client.resource(UriBuilder.fromUri("https://g0v.hackpad.com/api/1.0/pad/create").build());			
-		String json = servicePOST.accept(MediaType.APPLICATION_JSON).header("Content-Type", "text/plain").post(String.class, pad.getTitle() + '\n' + pad.getContent());
-		System.out.println(json);
+		WebResource servicePOST = client.resource(UriBuilder.fromUri(pad.getUri()).build());		
+		String json = servicePOST.accept(MediaType.APPLICATION_JSON).header("Content-Type", pad.getContentType()).post(String.class, pad.getTitle() + '\n' + pad.getContent());
+//		System.out.println(json);
 		Map<String, String> retMap = gson.fromJson(json,  
                 new TypeToken<Map<String, String>>() {}.getType());  
-		System.out.println(retMap.get("padId").toString());
-		pad.setPadID(retMap.get("padId").toString());
+//		System.out.println(retMap.get("padId").toString());
+		return retMap.get("padId").toString();
+	}
+	
+	/**
+	 * Get the pad's content
+	 * @param site The site of the pad
+	 * @param padID The ID of the pad
+	 * @param revision Revision number or "latest"
+	 * @param format File type requested ("txt", "html", or "md")
+	 * */
+	public String getPadContent(String site, String padID, String revision, String format)
+	{
+		String uri = String.format("https://%s.hackpad.com/api/1.0/pad/%s/content/%s.%s", site, padID, revision, format);
+		WebResource serviceGET = client.resource(UriBuilder.fromUri(uri).build());
+		return serviceGET.accept(MediaType.APPLICATION_JSON).get(String.class);
+	}
+	
+	public String getPadContent(String padID, String revision, String format)
+	{
+		String uri = String.format("https://hackpad.com/api/1.0/pad/%s/content/%s.%s", padID, revision, format);
+		WebResource serviceGET = client.resource(UriBuilder.fromUri(uri).build());
+		return serviceGET.accept(MediaType.APPLICATION_JSON).get(String.class);
 	}
 	
 	/**

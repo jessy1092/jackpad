@@ -1,10 +1,14 @@
 package org.lee.hackpad.jackpad;
 
+import static org.junit.Assert.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 import org.junit.Before;
+import org.junit.Test;
+import org.lee.hackpad.jackpad.content.Pad;
 
 public class JackpadClientTest
 {
@@ -13,6 +17,7 @@ public class JackpadClientTest
 	private String HACKPAD_CLIENT_ID;
 	private String HACKPAD_SECRET;
 	private JackpadClient jackpadClient;
+	private Pad pad;
 	
 	@Before
 	public void setUp()
@@ -20,6 +25,8 @@ public class JackpadClientTest
 		setApiKey();
 		jackpadClient = new JackpadClient(HACKPAD_CLIENT_ID, HACKPAD_SECRET);
 		jackpadClient.build();
+		pad = new Pad("text/plain", "ddd");
+		pad.setTitle("hi");
 	}
 	
 	public void setApiKey()
@@ -41,4 +48,22 @@ public class JackpadClientTest
 			System.out.println(e.toString());
 		}
 	}
+	
+	/*@Test
+	public void TestCreatePad()
+	{
+		String test = jackpadClient.createPad(pad);
+		System.out.println(test);
+		assertEquals(false ,test.isEmpty());
+	}*/
+	
+	@Test
+	public void TestGetPadContent()
+	{
+		String padText = jackpadClient.getPadContent("ClziL81VPO9", "latest", "html");
+		System.out.println(padText);
+		assertEquals(false ,padText.isEmpty());
+	}
+	
+	
 }
