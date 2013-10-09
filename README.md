@@ -1,5 +1,7 @@
 #Overview
 
+[![Build Status](https://travis-ci.org/jessy1092/jackpad.png?branch=master)](https://travis-ci.org/jessy1092/jackpad)
+
 A client library for the Hackpad API (Version 1.0)
 
 Make sure to check out the official [Hackpad API documentation](https://hackpad.com/Hackpad-API-v1.0-k9bpcEeOo2Q).
