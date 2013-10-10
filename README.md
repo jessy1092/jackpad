@@ -8,7 +8,35 @@ Make sure to check out the official [Hackpad API documentation](https://hackpad.
 
 #Basic Usage
 
-##Creat pad
+##JackpadClient
+
+``` java
+JackpadClient jackpadClient = new JackpadClient(HACKPAD_CLIENT_ID, HACKPAD_SECRET);
+jackpadClient.build();
+```
+
+##Creat Pad
+
+``` java
+Pad pad = new Pad("text/plain", "Create Pad");
+pad.setTitle("Hello");
+jackpadClient.createPad(pad);
+```
+
+##Get Pad Content
+
+``` java
+String padText = jackpadClient.getPadContent(PADID, "latest", "html");
+```
+
+##Update Pad Content
+
+``` java
+Pad pad = new Pad("text/plain", "Update Pad");
+pad.setTitle("Hello");
+pad.setPadID(PADID);
+boolean test = jackpadClient.updatePadContent(pad);
+```
 
 #Maven
 
