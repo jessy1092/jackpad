@@ -51,3 +51,8 @@ boolean test = jackpadClient.updatePadContent(pad);
 #Reporting issues
 
 GitHub issue tracker: https://github.com/jessy1092/jackpad/issues
+
+#License
+
+The code is available at github project under [MIT License](https://github.com/jessy1092/jackpad/blob/master/LICENSE)
+
