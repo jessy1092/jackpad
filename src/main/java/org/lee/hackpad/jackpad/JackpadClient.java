@@ -107,6 +107,40 @@ public class JackpadClient
 		return serviceGET.accept(MediaType.APPLICATION_JSON).get(String.class);
 	}
 	
+	public String getPadContentMD(String site, String padID, String revision)
+	{
+		return this.getPadContent(site, padID, revision, "md");
+	}
+	
+	public String getPadContentMD(String padID, String revision)
+	{
+		return this.getPadContent(padID, revision, "md");
+	}
+	
+	public String getPadContentHTML(String site, String padID, String revision)
+	{
+		return this.getPadContent(site, padID, revision, "html");
+	}
+	
+	public String getPadContentHTML(String padID, String revision)
+	{
+		return this.getPadContent(padID, revision, "html");
+	}
+	
+	public String getPadContentTXT(String site, String padID, String revision)
+	{
+		return this.getPadContent(site, padID, revision, "txt");
+	}
+	
+	public String getPadContentTXT(String padID, String revision)
+	{
+		return this.getPadContent(padID, revision, "txt");
+	}
+	
+	/**
+	 * Update pad's content
+	 * @param pad Set the pad's ID, content-type, title and content
+	 * */
 	public boolean updatePadContent(Pad pad)
 	{
 		String uri = String.format("%s/pad/%s/content", pad.getUri(), pad.getPadID()) ;
