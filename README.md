@@ -28,6 +28,10 @@ jackpadClient.createPad(pad);
 ``` java
 String padText = jackpadClient.getPadContent(PADID, "latest", "html");
 ```
+or
+``` java
+String padText = jackpadClient.getPadContentHTML(PADID, "latest");
+```
 
 ##Update Pad Content
 
