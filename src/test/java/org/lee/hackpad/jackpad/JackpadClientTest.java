@@ -45,6 +45,8 @@ public class JackpadClientTest
 		}
 		catch(IOException e)
 		{
+			HACKPAD_CLIENT_ID = "";
+			HACKPAD_SECRET = "";
 			System.out.println(e.toString());
 		}
 	}
@@ -57,7 +59,7 @@ public class JackpadClientTest
 		assertEquals(false ,test.isEmpty());
 	}*/
 	
-	@Test
+	/*@Test
 	public void TestGetPadContent()
 	{
 		String padText = jackpadClient.getPadContent("ClziL81VPO9", "latest", "html");
@@ -71,6 +73,6 @@ public class JackpadClientTest
 		pad.setPadID("ClziL81VPO9");
 		boolean test = jackpadClient.updatePadContent(pad);
 		assertEquals(true, test);
-	}
+	}*/
 	
 }
